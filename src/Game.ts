@@ -86,17 +86,6 @@ export default class Game {
       this.initAudio();
     });
 
-    const githubButton = document.getElementById("github");
-    githubButton?.addEventListener("click", () => {
-      audioManager.play("gui.button.press");
-      window.open("https://github.com/0kzh/minicraft");
-    });
-
-    const websiteButton = document.getElementById("website");
-    websiteButton?.addEventListener("click", () => {
-      audioManager.play("gui.button.press");
-      window.open("https://kelvinzhang.com");
-    });
   }
 
   initStats() {
@@ -204,11 +193,13 @@ export default class Game {
   }
 
   initAudio() {
+    /*
     const sound = new Howl({
       src: ["audio/ambient.mp3"],
       loop: true,
     });
     sound.play();
+    */
   }
 
   onMouseDown(event: MouseEvent) {

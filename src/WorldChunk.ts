@@ -286,6 +286,7 @@ export class WorldChunk extends THREE.Group {
   }
 
   async playBlockSound(blockId: BlockID) {
+    /*
     switch (blockId) {
       case BlockID.Grass:
       case BlockID.Dirt:
@@ -302,6 +303,7 @@ export class WorldChunk extends THREE.Group {
         audioManager.play("dig.stone");
         break;
     }
+    */
   }
 
   /**
