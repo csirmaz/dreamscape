@@ -16,8 +16,7 @@ export const generateChunk = async (
 ) => {
   const chunkPos = new THREE.Vector3(x, 0, z);
   let data = initEmptyChunk(chunkSize);
-  const rng = new RNG(params.seed);
-  data = generateTerrain(rng, data, chunkSize, params, chunkPos);
+  data = generateTerrain(data, chunkSize, chunkPos);
   return data;
 };
 
@@ -39,29 +38,14 @@ const initEmptyChunk = (chunkSize: WorldSize) => {
 /**
  * Generates the terrain data
  */
-export const generateTerrain = (
-  rng: RNG,
+const generateTerrain = (
   input: BlockID[][][],
   size: WorldSize,
-  params: WorldParams,
   chunkPos: THREE.Vector3
 ): BlockID[][][] => {
-  const simplex = new SimplexNoise(rng);
   for (let x = 0; x < size.width; x++) {
     for (let z = 0; z < size.width; z++) {
       input[x][1][z] = BlockID.Grass;
-      /*
-      let height = 1;
-      for (let y = 0; y < size.height; y++) {
-        if (y < height) {
-          input[x][y][z] = BlockID.Dirt;
-        } else if (y === height) {
-          input[x][y][z] = BlockID.Grass;
-        } else if (y > height) {
-          input[x][y][z] = BlockID.Air;
-        }
-      }
-      */
     }
   }
 
@@ -71,6 +55,7 @@ export const generateTerrain = (
 /**
  * Generates trees
  */
+/*
 export const generateTrees = (
   rng: RNG,
   input: BlockID[][][],
@@ -173,11 +158,12 @@ export const generateTrees = (
 
   return input;
 };
+*/
 
 /**
  * Generate random patches of tall grass across the top surface
  */
-
+/*
 export const generateTallGrass = (
   rng: RNG,
   input: BlockID[][][],
@@ -235,10 +221,12 @@ export const generateTallGrass = (
 
   return input;
 };
+*/
 
 /**
  * Generate random patches of flowers across the top surface
  */
+/*
 export const generateFlowers = (
   rng: RNG,
   input: BlockID[][][],
@@ -301,3 +289,4 @@ export const generateFlowers = (
 
   return input;
 };
+*/
