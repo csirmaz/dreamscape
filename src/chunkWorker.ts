@@ -10,7 +10,6 @@ declare const self: DedicatedWorkerGlobalScope;
 
 export const generateChunk = async (
   chunkSize: WorldSize,
-  params: WorldParams,
   x: number,
   z: number
 ) => {

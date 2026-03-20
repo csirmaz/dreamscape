@@ -14,43 +14,6 @@ export type InstanceData = {
   instanceIds: number[]; // reference to mesh instanceId
 };
 
-export type WorldParams = {
-  seed: number;
-  terrain: {
-    scale: number;
-    magnitude: number;
-    offset: number;
-  };
-  surface: {
-    offset: number;
-    magnitude: number;
-  };
-  bedrock: {
-    offset: number;
-    magnitude: number;
-  };
-  trees: {
-    frequency: number;
-    trunkHeight: {
-      min: number;
-      max: number;
-    };
-    canopy: {
-      size: {
-        min: number;
-        max: number;
-      };
-    };
-  };
-  grass: {
-    frequency: number;
-    patchSize: number;
-  };
-  flowers: {
-    frequency: number;
-  };
-};
-
 export type WorldSize = {
   width: number;
   height: number;
@@ -58,7 +21,6 @@ export type WorldSize = {
 
 export class WorldChunk extends THREE.Group {
   data: InstanceData[][][] = [];
-  params: WorldParams;
   size: WorldSize;
   loaded: boolean;
   dataStore: DataStore;
@@ -66,13 +28,11 @@ export class WorldChunk extends THREE.Group {
 
   constructor(
     size: WorldSize,
-    params: WorldParams,
     dataStore: DataStore,
     wireframeMode = false
   ) {
     super();
     this.size = size;
-    this.params = params;
     this.dataStore = dataStore;
     this.loaded = false;
     this.wireframeMode = wireframeMode;
@@ -83,7 +43,6 @@ export class WorldChunk extends THREE.Group {
 
     const data: BlockID[][][] = await workerInstance.generateChunk(
       this.size,
-      this.params,
       this.position.x,
       this.position.z
     );
@@ -271,7 +230,6 @@ export class WorldChunk extends THREE.Group {
     // console.log(`Removing block at ${x}, ${y}, ${z}`);
     const block = this.getBlock(x, y, z);
     if (block && block.block !== BlockID.Air) {
-      this.playBlockSound(block.block);
       this.deleteBlockInstance(x, y, z);
       this.setBlockId(x, y, z, BlockID.Air);
       this.dataStore.set(
@@ -285,8 +243,8 @@ export class WorldChunk extends THREE.Group {
     }
   }
 
+/*
   async playBlockSound(blockId: BlockID) {
-    /*
     switch (blockId) {
       case BlockID.Grass:
       case BlockID.Dirt:
@@ -303,8 +261,8 @@ export class WorldChunk extends THREE.Group {
         audioManager.play("dig.stone");
         break;
     }
-    */
   }
+*/
 
   /**
    * Creates a new instance for the block at (x, y, z)
@@ -324,7 +282,6 @@ export class WorldChunk extends THREE.Group {
       ) as THREE.InstancedMesh;
 
       if (mesh) {
-        this.playBlockSound(block.block);
         if (blockClass.geometry == RenderGeometry.Cube) {
           const instanceId = mesh.count++;
           this.setBlockInstanceIds(x, y, z, [instanceId]);

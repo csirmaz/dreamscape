@@ -5,7 +5,7 @@ import { BlockFactory } from "./Block/BlockFactory";
 import { LightSourceBlock } from "./Block/LightSourceBlock";
 import { DataStore } from "./DataStore";
 import { Player } from "./Player";
-import { WorldChunk, WorldParams, WorldSize } from "./WorldChunk";
+import { WorldChunk, WorldSize } from "./WorldChunk";
 
 export class World extends THREE.Group {
   scene: THREE.Scene;
@@ -20,43 +20,6 @@ export class World extends THREE.Group {
   initialLoadComplete = false;
   // minChunkLoadTimeout = 200;
   // lastChunkLoadTime = 0;
-
-  params: WorldParams = {
-    seed: 0,
-    terrain: {
-      scale: 50,
-      magnitude: 0.1,
-      offset: 0.5,
-    },
-    surface: {
-      offset: 4,
-      magnitude: 4,
-    },
-    bedrock: {
-      offset: 1,
-      magnitude: 1,
-    },
-    trees: {
-      frequency: 0.04,
-      trunkHeight: {
-        min: 5,
-        max: 7,
-      },
-      canopy: {
-        size: {
-          min: 1,
-          max: 3,
-        },
-      },
-    },
-    grass: {
-      frequency: 0.02,
-      patchSize: 5,
-    },
-    flowers: {
-      frequency: 0.0075,
-    },
-  };
 
   // Used for persisting changes to the world
   dataStore = new DataStore();
@@ -274,7 +237,6 @@ export class World extends THREE.Group {
   async generateChunk(x: number, z: number) {
     const chunk = new WorldChunk(
       this.chunkSize,
-      this.params,
       this.dataStore,
       this.wireframeMode
     );
